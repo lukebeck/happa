@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>漢字現出分析</title>
+    <link href="favicon.png" rel="icon" type="image/png"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <style>
+        body {
+            font-family: 游ゴシック, "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, sans-serif;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<section class="hero is-dark">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+            <span class="icon has-text-success">
+                <i class="ion-leaf"></i>
+            </span>
+            葉っぱ
+            </h1>
+            <h2 class="subtitle">
+                シンプルな漢字現出分析
+            </h2>
+        </div>
+    </div>
+</section>
+    
+<!-- Text Input and Display -->
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <h1 class="title">
+                    入力
+                </h1>
+                <div class="content">
+                    <form action="javascript:getInput()">
+                        <div class="field">
+                            <div class="control">
+                                <textarea id="input" class="textarea" placeholder="ここに文章を入力してください。" cols="50"></textarea>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <button value="Submit" class="button is-link">送信する</button>
+                        </div>
+                    </form> 
+                </div>
+            </div>
+            <div class="column">
+                <h1 class="title">
+                    文章
+                </h1>
+                <div id="text" class="content">
+                    text
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Kanji Display -->
+<section class="section">
+    <div class="container">
+        <h1 class="title">
+            漢字
+        </h1>
+        <div id="kanji" class="content">
+            kanji
+        </div>
+    </div>
+</section>
+
+<!-- Info -->
+<section class="section">
+    <div class="container">
+        <div class="tile is-ancestor">
+            <div class="tile is-4 is-vertical is-parent">
+                <div class="tile is-child box">
+                    <p class="title">統計情報</p>
+                    <p id="percent">0 of 0<br>0%</p>
+                </div>
+                <div class="tile is-child box">
+                    <p class="title">色の意義</p>
+                    <p>色は漢字の頻度を表示しっています。</p><br>
+                    <p>
+                        <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
+                                <ul>
+                                    <li><span class="tag">0</span></li>
+                                    <li><span class="tag is-info">1</span></li>
+                                    <li><span class="tag is-link">2</span></li>
+                                    <li><span class="tag is-success">3</span></li>
+                                    <li><span class="tag is-warning">4</span></li>
+                                    <li><span class="tag is-danger">5+</span></li>
+                                </ul>
+                            </nav>
+                    </p>
+                </div>
+            </div>
+            <div class="tile is-parent">
+                <div class="tile is-child box">
+                    <p class="title">漢字の順番</p>
+                    <div class="field">
+                        <div class="control">
+                            <button onclick="setKanji(radical)" class="button is-dark">部首</button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button onclick="setKanji(freq)" class="button is-dark">頻度</button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button onclick="setKanji(grade)" class="button is-dark">学年</button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button onclick="setKanji(stroke)" class="button is-dark">総画数</button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button onclick="setKanji(heisig)" class="button is-dark">ハイジック</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tile is-parent">
+                <div class="tile is-child box">
+                    <p class="title">例文</p>
+                    <div class="field">
+                        <div class="control ">
+                            <button onclick="setText(yoshida)" class="button is-dark"><span class="has-text-weight-semibold">吉田兼好</span>　徒然草 </button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button onclick="setText(mori)" class="button is-dark"><span class="has-text-weight-semibold">森鴎外</span>　舞姫</button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button onclick="setText(natsume)" class="button is-dark"><span class="has-text-weight-semibold">夏目漱石</span>　こころ </button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button onclick="setText(akutagawa)" class="button is-dark"><span class="has-text-weight-semibold">芥川龍之介</span>　羅生門 </button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button onclick="setText(dazai)" class="button is-dark"><span class="has-text-weight-semibold">太宰治</span>　走れメロス </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+        <p>
+            <span class="icon has-text-success"><i class="ion-leaf"></i></span>
+            <strong>葉っぱ</strong>
+            <br>
+            <span class="icon has-text-warning"><i class="ion-edit"></i></span>
+            Luke Beck
+            <br>
+            <a href="https://github.com/lukebeck/happa"><span class="icon has-text-link"><i class="ion-social-octocat"></i></span></a>
+        </p>
+        </div>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
