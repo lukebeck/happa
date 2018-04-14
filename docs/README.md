@@ -12,7 +12,7 @@ Kanji list can be ordered by:
 * radicals
 * strokes
 
-Own text can be entered in, but can also see examples from:
+Enter your own text, or preview with short examples from:
 
 * Yoshida Kenko
 * Mori Ogai
@@ -20,3 +20,12 @@ Own text can be entered in, but can also see examples from:
 * Akutagawa Ryunosuke
 * Dazai Osamu
 
+Try it out:
+[葉っぱ](https://github.com/lukebeck/happa)
+
+## Future projects
+
+* 💧 mizutama: [水玉](https://github.com/lukebeck/happa/mizutama)
+* 🔥 takibi: [焚き火](https://github.com/lukebeck/happa/takibi)
+
+Currently these are just names in search of projects.
